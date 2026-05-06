@@ -155,6 +155,18 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 .hot-link{color:var(--accent2);text-decoration:none}
 .hot-link:hover{text-decoration:underline}
 
+/* ── 04-B 브랜드 이미지 가치어 ─────────── */
+.value-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.value-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:18px}
+.value-card.lotte-main{border-color:rgba(228,0,58,.28)}
+.value-card-title{font-size:13px;font-weight:600;margin-bottom:12px}
+.value-kw-cloud{display:flex;flex-wrap:wrap;gap:5px}
+.vkw{font-size:12px;padding:4px 10px;border-radius:20px;border:1px solid var(--border2);color:var(--text2);font-family:'Noto Sans KR',sans-serif;cursor:default;transition:transform .1s}
+.vkw:hover{transform:scale(1.06)}
+.vkw-high{font-size:14px;padding:5px 13px;font-weight:600;border-radius:20px}
+.vkw-mid{font-size:13px;padding:4px 11px;border-radius:20px}
+.vkw-low{font-size:11px;padding:3px 8px;border-radius:16px;opacity:.75}
+
 /* ── 05 피드 ─────────────────────────────── */
 .feed-filter{display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap}
 .filter-btn{font-size:13px;padding:5px 13px;border-radius:20px;border:1px solid var(--border2);color:var(--text2);cursor:pointer;background:transparent;font-family:'Noto Sans KR',sans-serif;transition:all .15s}
@@ -185,10 +197,11 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
 .sov-summary{animation:fadeUp .4s ease both .05s}
 .section-wrap{animation:fadeUp .4s ease both .1s}
 
-@media(max-width:1100px){.sov-summary{grid-template-columns:1fr}.buzz-hot-grid{grid-template-columns:1fr}}
+@media(max-width:1100px){.sov-summary{grid-template-columns:1fr}.value-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:900px){
   .sent-summary{grid-template-columns:1fr 1fr}
   .image-grid{grid-template-columns:1fr 1fr}
+  .value-grid{grid-template-columns:repeat(2,1fr)}
   .feed-grid{grid-template-columns:1fr 1fr}
   .container{padding:0 16px 60px}
   .header{padding:10px 16px}
@@ -294,32 +307,34 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
     </div>
   </div>
 
-  <!-- ═══ 03 이미지 키워드 (메인) ══════════════════ -->
+  <!-- ═══ 03 브랜드 핵심 키워드 ════════════════════ -->
   <div class="section-wrap">
-    <div class="section-label">🏷️ 브랜드 이미지 핵심 키워드 <span class="idx">03</span></div>
+    <div class="section-label">🏷️ 브랜드 핵심 키워드 <span class="idx">03</span></div>
     <div class="image-grid" id="imageGrid">
       <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">📡 데이터 불러오는 중...</div>
     </div>
   </div>
 
-  <!-- ═══ 04 버즈량 + Hot 이슈 ═══════════════════ -->
+  <!-- ═══ 04 브랜드 이미지 키워드 (가치어) ══════════ -->
   <div class="section-wrap">
-    <div class="section-label">📡 버즈량 & 최신 이슈 <span class="idx">04</span></div>
-    <div class="buzz-hot-grid">
-      <div class="buzz-card-section">
-        <div class="sov-card-title" style="margin-bottom:18px">브랜드별 버즈량</div>
-        <div id="buzzRows"><div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">📡 불러오는 중...</div></div>
-      </div>
-      <div class="hot-list-section">
-        <div class="sov-card-title" style="margin-bottom:16px">브랜드별 최신 이슈</div>
-        <div id="hotList"><div style="padding:20px;color:var(--text3);font-size:13px">📡 불러오는 중...</div></div>
-      </div>
+    <div class="section-label">✨ 브랜드 이미지 키워드 <span class="idx">04</span></div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:14px">공간·분위기·경험 가치어 기반 — 각 브랜드가 연상시키는 핵심 이미지</div>
+    <div class="value-grid" id="valueGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">📡 데이터 불러오는 중...</div>
     </div>
   </div>
 
-  <!-- ═══ 05 전체 피드 ════════════════════════════ -->
+  <!-- ═══ 05 최신 이슈 ════════════════════════════ -->
   <div class="section-wrap">
-    <div class="section-label">📋 전체 이슈 피드 <span class="idx">05</span></div>
+    <div class="section-label">📡 브랜드별 최신 이슈 <span class="idx">05</span></div>
+    <div class="hot-list-section">
+      <div id="hotList"><div style="padding:20px;color:var(--text3);font-size:13px">📡 불러오는 중...</div></div>
+    </div>
+  </div>
+
+  <!-- ═══ 06 전체 피드 ════════════════════════════ -->
+  <div class="section-wrap">
+    <div class="section-label">📋 전체 이슈 피드 <span class="idx">06</span></div>
     <div class="feed-filter">
       <button class="filter-btn active" onclick="filterFeed('all',this)">전체</button>
       <button class="filter-btn" onclick="filterFeed('pos',this)">🔥 긍정</button>
@@ -451,7 +466,7 @@ function toggleKw(el){
 function applyAll(){
   document.querySelectorAll('#feedGrid .feed-card').forEach(c=>c.classList.toggle('hidden',!activeBrands.has(c.dataset.brand)));
   applyFeedFilter();
-  renderMainDonut(); renderSentAll(); renderAreaChart(); renderTrendChart(); renderSentBars(); renderBuzzRows();
+  renderMainDonut(); renderSentAll(); renderAreaChart(); renderTrendChart(); renderSentBars();
 }
 
 // ════════════════════════════════════════════════════════
@@ -681,7 +696,7 @@ renderMainDonut(); renderSentAll(); renderAreaChart(); renderTrendChart();
 // ════════════════════════════════════════════════════════
 // Google Sheets 연동
 // ════════════════════════════════════════════════════════
-const SHEETS_ID = '1zewqU8GSjtNW1bXrw30Jh1jOQux08mO-IoVNlEvPYuI';
+const SHEETS_ID  = '1zewqU8GSjtNW1bXrw30Jh1jOQux08mO-IoVNlEvPYuI';
 const SHEETS_URL = `https://docs.google.com/spreadsheets/d/${SHEETS_ID}/gviz/tq?tqx=out:json&sheet=피드`;
 
 function timeAgo(dateStr){
@@ -766,7 +781,7 @@ async function loadFeedFromSheets(){
 
     // ── 차트 전체 리렌더 ──────────────────────────
     renderMainDonut(); renderSentAll(); renderAreaChart(); renderTrendChart();
-    renderSentBars(); renderBuzzRows();
+    renderSentBars();
 
     // ── 이미지 키워드 분석 ────────────────────────
     const STOP_WORDS=new Set([
@@ -881,6 +896,71 @@ async function loadFeedFromSheets(){
             긍정 ${posRate}% · 부정 ${negRate}% · 중립 ${neuRate}%
           </div>
           <div class="kw-cloud">${chips}</div>
+        </div>`;
+    });
+
+    // ── 브랜드 이미지 가치어 렌더 ───────────────────
+    // 공간/분위기/경험/감성 가치어 화이트리스트
+    const VALUE_WORDS = new Set([
+      // 공간/환경 가치어
+      '쾌적','깔끔','청결','넓다','넓고','여유','한산','조용','아늑','따뜻','시원','환하','밝은','어두운',
+      '협소','복잡','붐비','혼잡','답답','좁다','소란',
+      // 분위기/감성 가치어
+      '고급스럽','럭셔리','세련','우아','격조','품격','화려','웅장','모던','트렌디','힙하','감각적',
+      '아기자기','아늑','빈티지','레트로','클래식','심플','미니멀',
+      '인스타감성','감성적','포토제닉','포토존','인생샷','뷰맛집','사진맛집',
+      // 경험 가치어
+      '편하','편리','편안','불편','불쾌','힘들','피곤','지치','쉬기','여유롭',
+      '즐거','재미','행복','설레','기대','아쉽','실망','지루','심심',
+      '새롭','신선','특별','색다른','독특','평범','흔한',
+      // 서비스 가치어
+      '친절','불친절','세심','꼼꼼','빠른','느린','정확','신뢰','믿음직','허술','부족',
+      // 가격/가치 가치어
+      '합리적','저렴','가성비','비싸','과하다','아깝','값어치','돈값','호화','사치',
+      // 접근성 가치어
+      '접근성','편의','편하게','멀다','가깝','찾기','복잡한','헷갈','수월','간편',
+      // 회복/힐링 가치어
+      '힐링','치유','회복','에너지','활력','피로','스트레스','해소','위로','충전',
+    ]);
+
+    const brandValueMap={};BRANDS.forEach(b=>brandValueMap[b]={});
+    items.forEach(item=>{
+      const b=item.브랜드; if(!brandValueMap[b])return;
+      const words=(item.제목+' '+item.내용요약)
+        .replace(/https?:\/\/\S+/g,'')
+        .replace(/[^\w가-힣\s]/g,' ')
+        .split(/\s+/);
+      words.forEach(w=>{
+        // 가치어 화이트리스트와 매칭
+        for(const vw of VALUE_WORDS){
+          if(w.includes(vw)||vw.includes(w)){
+            const key=vw; // 표준형으로 저장
+            brandValueMap[b][key]=(brandValueMap[b][key]||0)+1;
+            break;
+          }
+        }
+      });
+    });
+
+    const valueGrid=document.getElementById('valueGrid');
+    valueGrid.innerHTML='';
+    const valueBrands=[...BRANDS].sort((a,b)=>a==='롯데백화점'?-1:b==='롯데백화점'?1:0);
+    valueBrands.forEach(b=>{
+      if(!activeBrands.has(b))return;
+      const isLotte=b==='롯데백화점';
+      const entries=Object.entries(brandValueMap[b]).sort((a,c)=>c[1]-a[1]).slice(0,12);
+      if(entries.length===0)return;
+      const maxFreq=entries[0][1]||1;
+      const kcClass=KC[b]||'kc-default';
+      const chips=entries.map(([w,cnt])=>{
+        const r=cnt/maxFreq;
+        const sz=r>0.6?'vkw-high':r>0.3?'vkw-mid':'vkw-low';
+        return `<span class="vkw ${sz} ${kcClass}" title="${cnt}건">${w}</span>`;
+      }).join('');
+      valueGrid.innerHTML+=`
+        <div class="value-card${isLotte?' lotte-main':''}">
+          <div class="value-card-title" style="color:${BC[b]}">${b}${isLotte?' ✦':''}</div>
+          <div class="value-kw-cloud">${chips}</div>
         </div>`;
     });
 
