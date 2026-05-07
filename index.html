@@ -348,36 +348,14 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
     </div>
   </div>
 
-  <!-- ═══ 03 브랜드 핵심 키워드 ════════════════════ -->
+  <!-- ═══ 03 경쟁력 5요인 버즈 비중 + M/S ══════════ -->
   <div class="section-wrap">
-    <div class="section-label">🏷️ 브랜드 핵심 키워드 <span class="idx">03</span></div>
-    <div class="image-grid" id="imageGrid">
-      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">📡 데이터 불러오는 중...</div>
-    </div>
-  </div>
+    <div class="section-label">🏆 백화점 경쟁력 5요인 분석 <span class="idx">03</span></div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:16px">요인별 버즈 비중(자사 내 비중) + 요인별 경쟁 M/S(업계 내 점유율) — 요인명에 마우스를 올리면 상세 설명이 표시돼요</div>
 
-  <!-- ═══ 04 브랜드 이미지 키워드 (가치어) ══════════ -->
-  <div class="section-wrap">
-    <div class="section-label">✨ 브랜드 이미지 키워드 <span class="idx">04</span></div>
-    <div style="font-size:12px;color:var(--text3);margin-bottom:14px">공간·분위기·경험 가치어 기반 — 각 브랜드가 연상시키는 핵심 이미지</div>
-    <div class="value-grid" id="valueGrid">
-      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">📡 데이터 불러오는 중...</div>
-    </div>
-  </div>
-
-  <!-- ═══ 05 최신 이슈 ════════════════════════════ -->
-  <div class="section-wrap">
-    <div class="section-label">📡 브랜드별 최신 이슈 <span class="idx">05</span></div>
-    <div class="hot-list-section">
-      <div id="hotList"><div style="padding:20px;color:var(--text3);font-size:13px">📡 불러오는 중...</div></div>
-    </div>
-  </div>
-
-  <!-- ═══ 06 경쟁력 5요인 분석 ══════════════════════ -->
-  <div class="section-wrap">
-    <div class="section-label">🏆 백화점 경쟁력 5요인 버즈 비중 <span class="idx">06</span></div>
-    <div style="font-size:12px;color:var(--text3);margin-bottom:16px">각 경쟁 요인에 해당하는 온라인 버즈 비중 — 요인명에 마우스를 올리면 상세 설명이 표시돼요</div>
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px;overflow-x:auto">
+    <!-- 버즈 비중 표 -->
+    <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:10px;padding-left:2px">📊 요인별 버즈 비중 <span style="font-size:11px;font-weight:400;color:var(--text3)">(각 브랜드 내 해당 요인 버즈 비중)</span></div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px;overflow-x:auto;margin-bottom:16px">
       <table class="factor-table" id="factorTable">
         <thead>
           <tr>
@@ -393,6 +371,51 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
           <tr><td colspan="6" style="text-align:center;padding:30px;color:var(--text3)">📡 데이터 불러오는 중...</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- M/S 표 -->
+    <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:10px;padding-left:2px">🥊 요인별 경쟁 M/S <span style="font-size:11px;font-weight:400;color:var(--text3)">(해당 요인 버즈에서 각 브랜드가 차지하는 점유율)</span></div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px;overflow-x:auto">
+      <table class="factor-table" id="factorMsTable">
+        <thead>
+          <tr>
+            <th style="min-width:130px">경쟁 요인</th>
+            <th class="brand-col" style="color:#e4003a;min-width:180px">롯데백화점</th>
+            <th class="brand-col" style="color:#2e7d32;min-width:180px">신세계백화점</th>
+            <th class="brand-col" style="color:#1565c0;min-width:180px">현대백화점</th>
+            <th class="brand-col" style="color:#6a1b9a;min-width:180px">갤러리아백화점</th>
+            <th class="brand-col" style="color:#e65100;min-width:180px">AK플라자</th>
+          </tr>
+        </thead>
+        <tbody id="factorMsBody">
+          <tr><td colspan="6" style="text-align:center;padding:30px;color:var(--text3)">📡 데이터 불러오는 중...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ 04 브랜드 핵심 키워드 ════════════════════ -->
+  <div class="section-wrap">
+    <div class="section-label">🏷️ 브랜드 핵심 키워드 <span class="idx">04</span></div>
+    <div class="value-grid" id="imageGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">📡 데이터 불러오는 중...</div>
+    </div>
+  </div>
+
+  <!-- ═══ 05 브랜드 이미지 키워드 (가치어) ══════════ -->
+  <div class="section-wrap">
+    <div class="section-label">✨ 브랜드 이미지 키워드 <span class="idx">05</span></div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:14px">공간·분위기·경험 가치어 기반 — 각 브랜드가 연상시키는 핵심 이미지</div>
+    <div class="value-grid" id="valueGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">📡 데이터 불러오는 중...</div>
+    </div>
+  </div>
+
+  <!-- ═══ 06 최신 이슈 ════════════════════════════ -->
+  <div class="section-wrap">
+    <div class="section-label">📡 브랜드별 최신 이슈 <span class="idx">06</span></div>
+    <div class="hot-list-section">
+      <div id="hotList"><div style="padding:20px;color:var(--text3);font-size:13px">📡 불러오는 중...</div></div>
     </div>
   </div>
 
@@ -980,24 +1003,20 @@ function renderAllData(items){
       const neuRate=100-posRate-negRate;
       const kcClass=KC[b]||'kc-default';
       const chips=entries.map(({w,cnt})=>{
-        const sz=kwSize(cnt,maxFreq);
-        return `<span class="kw-chip ${sz} ${kcClass}" title="${cnt}건">${w}</span>`;
+        const r=cnt/maxFreq;
+        const sz=r>0.6?'vkw-high':r>0.35?'vkw-mid':'vkw-low';
+        return `<span class="vkw ${sz} ${kcClass}" title="${cnt}건">${w}</span>`;
       }).join('');
       imageGrid.innerHTML+=`
-        <div class="image-card${isLotte?' lotte-main':''}">
-          <div class="image-card-header">
-            <span class="image-card-title" style="color:${BC[b]}">${b}${isLotte?' ✦':''}</span>
-            <span class="image-card-total">${total}건</span>
+        <div class="value-card${isLotte?' lotte-main':''}">
+          <div class="value-card-title" style="color:${BC[b]}">${b}${isLotte?' ✦':''} <span style="font-size:10px;color:var(--text3);font-weight:400">${total}건</span></div>
+          <div style="display:flex;height:4px;border-radius:2px;overflow:hidden;margin-bottom:10px;gap:1px">
+            <div style="flex:${posRate};background:var(--pos)"></div>
+            <div style="flex:${neuRate};background:rgba(255,183,64,.5)"></div>
+            <div style="flex:${negRate};background:var(--neg)"></div>
           </div>
-          <div class="mini-sent-bar">
-            <div class="mini-pos" style="flex:${posRate}"></div>
-            <div class="mini-neg" style="flex:${negRate}"></div>
-            <div class="mini-neu" style="flex:${neuRate}"></div>
-          </div>
-          <div style="font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:12px">
-            긍정 ${posRate}% · 부정 ${negRate}% · 중립 ${neuRate}%
-          </div>
-          <div class="kw-cloud">${chips}</div>
+          <div style="font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:10px">긍정 ${posRate}% · 중립 ${neuRate}% · 부정 ${negRate}%</div>
+          <div class="value-kw-cloud">${chips}</div>
         </div>`;
     });
 
@@ -1212,7 +1231,6 @@ function renderAllData(items){
           </div>`;
 
         const tds=cells.map(({b,cnt,pct})=>{
-          const isMax=pct===maxPct&&pct>0;
           const color=BC[b]||'#888';
           const barW=maxPct>0?Math.round(pct/maxPct*100):0;
           return `<td class="factor-bar-cell">
@@ -1223,7 +1241,6 @@ function renderAllData(items){
                 </div>
               </div>
               <span class="factor-pct" style="${b==='롯데백화점'?'color:var(--accent2);font-weight:600':''}">${pct}%</span>
-              <span class="factor-rank ${isMax?'rank1':'rank2'}">${isMax?'1위':''}</span>
             </div>
             <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:'DM Mono',monospace">${cnt}건</div>
           </td>`;
@@ -1238,6 +1255,62 @@ function renderAllData(items){
             </div>
           </td>
           ${tds}
+        </tr>`;
+      });
+    }
+
+    // ── M/S 표 렌더 (요인별 브랜드 점유율) ─────────
+    const factorMsBody=document.getElementById('factorMsBody');
+    if(factorMsBody){
+      factorMsBody.innerHTML='';
+      FACTORS.forEach(factor=>{
+        // 요인별 전체 버즈 합계
+        const factorTotal=BRANDS.reduce((s,b)=>{
+          const text_cnt=factorData[b]?factorData[b][factor.key]||0:0;
+          return s+text_cnt;
+        },0)||1;
+
+        const msCells=BRANDS.map(b=>{
+          const cnt=factorData[b]?factorData[b][factor.key]||0:0;
+          const ms=Math.round(cnt/factorTotal*100);
+          return {b,cnt,ms};
+        });
+        const maxMs=Math.max(...msCells.map(c=>c.ms))||1;
+
+        const kwHtml=factor.kws.slice(0,8).map(k=>`<span class="factor-tooltip-kw">${k}</span>`).join('');
+        const tooltipHtml=`
+          <div class="factor-tooltip">
+            <div class="factor-tooltip-title">${factor.icon} ${factor.key} M/S</div>
+            <div class="factor-tooltip-desc">해당 요인 전체 버즈(${factorTotal}건) 중 각 브랜드가 차지하는 점유율</div>
+            <div class="factor-tooltip-kws">${kwHtml}</div>
+          </div>`;
+
+        const msTds=msCells.map(({b,cnt,ms})=>{
+          const isLotte=b==='롯데백화점';
+          const color=BC[b]||'#888';
+          const barW=Math.round(ms/maxMs*100);
+          return `<td class="factor-bar-cell">
+            <div style="display:flex;align-items:center;gap:6px">
+              <div class="factor-bar-wrap" style="flex:1">
+                <div class="factor-bar-fill" style="width:${barW}%;background:${color};opacity:${isLotte?1:.72}">
+                  ${barW>25?ms+'%':''}
+                </div>
+              </div>
+              <span class="factor-pct" style="${isLotte?'color:var(--accent2);font-weight:600':''}">${ms}%</span>
+            </div>
+            <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:'DM Mono',monospace">${cnt}건</div>
+          </td>`;
+        }).join('');
+
+        factorMsBody.innerHTML+=`<tr>
+          <td>
+            <div class="factor-name">
+              <span class="factor-icon">${factor.icon}</span>
+              <span class="factor-label">${factor.key}</span>
+              ${tooltipHtml}
+            </div>
+          </td>
+          ${msTds}
         </tr>`;
       });
     }
