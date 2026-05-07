@@ -191,6 +191,47 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 .buzz-card-inner:last-child{margin-bottom:0}
 .buzz-inner-hidden{display:none}
 
+/* ── 경쟁력 5요인 테이블 ─────────────────── */
+.factor-table{width:100%;border-collapse:collapse;font-size:13px}
+.factor-table th{padding:10px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border2);font-family:'DM Mono',monospace}
+.factor-table th.brand-col{text-align:center}
+.factor-table td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+.factor-table tr:last-child td{border-bottom:none}
+.factor-table tr:hover td{background:rgba(255,255,255,.02)}
+.factor-name{display:flex;align-items:center;gap:7px;cursor:help;position:relative}
+.factor-icon{font-size:16px}
+.factor-label{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap}
+.factor-tooltip{
+  position:absolute;left:0;top:calc(100% + 8px);z-index:200;
+  background:#1a1a28;border:1px solid var(--border2);border-radius:10px;
+  padding:12px 14px;width:260px;pointer-events:none;opacity:0;
+  transition:opacity .15s;box-shadow:0 8px 24px rgba(0,0,0,.4);
+}
+.factor-name:hover .factor-tooltip{opacity:1}
+.factor-tooltip-title{font-size:12px;font-weight:600;color:var(--accent2);margin-bottom:6px}
+.factor-tooltip-desc{font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:7px}
+.factor-tooltip-kws{display:flex;flex-wrap:wrap;gap:4px}
+.factor-tooltip-kw{font-size:10px;padding:2px 7px;border-radius:6px;background:rgba(255,255,255,.06);color:var(--text3);font-family:'DM Mono',monospace}
+.factor-bar-cell{min-width:120px}
+.factor-bar-wrap{height:20px;background:rgba(255,255,255,.04);border-radius:5px;overflow:hidden;display:flex}
+.factor-bar-fill{height:100%;border-radius:5px;display:flex;align-items:center;padding-left:7px;font-size:11px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.85);font-weight:500;transition:width .6s ease;white-space:nowrap;overflow:hidden;min-width:0}
+.factor-pct{font-size:12px;font-family:'DM Mono',monospace;color:var(--text2);min-width:38px;text-align:right;padding-left:8px}
+.factor-rank{font-size:11px;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:10px;background:rgba(255,255,255,.06);color:var(--text3);text-align:center}
+.factor-rank.rank1{background:rgba(255,183,64,.15);color:var(--neu);font-weight:600}
+.factor-rank.rank2{background:rgba(255,255,255,.08);color:var(--text2)}
+
+/* ── value-grid 확장 ────────────────────────── */
+.value-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.value-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;min-height:260px}
+.value-card.lotte-main{border-color:rgba(228,0,58,.28)}
+.value-card-title{font-size:13px;font-weight:600;margin-bottom:12px}
+.value-kw-cloud{display:flex;flex-wrap:wrap;gap:5px}
+.vkw{font-size:12px;padding:4px 10px;border-radius:20px;border:1px solid var(--border2);color:var(--text2);font-family:'Noto Sans KR',sans-serif;cursor:default;transition:transform .1s}
+.vkw:hover{transform:scale(1.06)}
+.vkw-high{font-size:15px;padding:6px 14px;font-weight:600;border-radius:20px}
+.vkw-mid{font-size:13px;padding:4px 11px;border-radius:20px}
+.vkw-low{font-size:11px;padding:3px 8px;border-radius:16px;opacity:.75}
+
 footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify-content:space-between;font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;flex-wrap:wrap;gap:8px}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -221,8 +262,8 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
     <span class="logo-text">🛍️ 롯데백화점 바이럴 모니터링</span>
   </div>
   <div class="header-right">
-    <button class="live-btn active" id="liveBtn" onclick="toggleLive()">
-      <span class="live-dot" id="liveDot"></span>LIVE
+    <button class="live-btn" id="liveBtn" onclick="toggleAllPeriod()">
+      전체기간
     </button>
     <input type="date" class="date-input" id="dateFrom">
     <span class="date-sep">~</span>
@@ -332,9 +373,32 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
     </div>
   </div>
 
-  <!-- ═══ 06 전체 피드 ════════════════════════════ -->
+  <!-- ═══ 06 경쟁력 5요인 분석 ══════════════════════ -->
   <div class="section-wrap">
-    <div class="section-label">📋 전체 이슈 피드 <span class="idx">06</span></div>
+    <div class="section-label">🏆 백화점 경쟁력 5요인 버즈 비중 <span class="idx">06</span></div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:16px">각 경쟁 요인에 해당하는 온라인 버즈 비중 — 요인명에 마우스를 올리면 상세 설명이 표시돼요</div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px;overflow-x:auto">
+      <table class="factor-table" id="factorTable">
+        <thead>
+          <tr>
+            <th style="min-width:130px">경쟁 요인</th>
+            <th class="brand-col" style="color:#e4003a;min-width:180px">롯데백화점</th>
+            <th class="brand-col" style="color:#2e7d32;min-width:180px">신세계백화점</th>
+            <th class="brand-col" style="color:#1565c0;min-width:180px">현대백화점</th>
+            <th class="brand-col" style="color:#6a1b9a;min-width:180px">갤러리아백화점</th>
+            <th class="brand-col" style="color:#e65100;min-width:180px">AK플라자</th>
+          </tr>
+        </thead>
+        <tbody id="factorTableBody">
+          <tr><td colspan="6" style="text-align:center;padding:30px;color:var(--text3)">📡 데이터 불러오는 중...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ 07 전체 피드 ════════════════════════════ -->
+  <div class="section-wrap">
+    <div class="section-label">📋 전체 이슈 피드 <span class="idx">07</span></div>
     <div class="feed-filter">
       <button class="filter-btn active" onclick="filterFeed('all',this)">전체</button>
       <button class="filter-btn" onclick="filterFeed('pos',this)">🔥 긍정</button>
@@ -422,17 +486,33 @@ function updateTime(){
 }
 updateTime(); setInterval(updateTime,60000);
 
-function toggleLive(){
-  isLive=!isLive;
-  const btn=document.getElementById('liveBtn'), dot=document.getElementById('liveDot');
-  if(isLive){
-    btn.classList.add('active'); dot.style.animation='blink 1.8s infinite';
-    document.getElementById('periodBadge').classList.remove('visible');
-    document.getElementById('dateFrom').value=''; document.getElementById('dateTo').value='';
-    activeWeekRange=null; renderAreaChart(); renderTrendChart();
-  } else {
-    btn.classList.remove('active'); dot.style.animation='none'; dot.style.opacity='.3';
-  }
+// 전체기간 버튼
+function toggleAllPeriod(){
+  document.getElementById('dateFrom').value='';
+  document.getElementById('dateTo').value='';
+  document.getElementById('periodBadge').classList.remove('visible');
+  document.getElementById('updateTime').textContent='전체 기간';
+  activeWeekRange=null;
+  isLive=true;
+  renderAreaChart(); renderTrendChart();
+  // 전체 데이터 리로드
+  
+}
+
+// 디폴트 기간 설정: 오늘 ~ W-11 시작일
+function setDefaultDateRange(){
+  const today=new Date();
+  const todayStr=fmt(today);
+  const w11Start=new Date(thisMonday);
+  w11Start.setDate(thisMonday.getDate()-11*7);
+  const w11Str=fmt(w11Start);
+  document.getElementById('dateFrom').value=w11Str;
+  document.getElementById('dateTo').value=todayStr;
+  const badge=document.getElementById('periodBadge');
+  badge.textContent=`W-11 ~ 오늘 (${w11Str} ~ ${todayStr})`;
+  badge.classList.add('visible');
+  document.getElementById('updateTime').textContent='기간 조회 모드';
+  isLive=false;
 }
 
 function dateToWeekIdx(dateStr){
@@ -446,7 +526,7 @@ function applyDateRange(){
   const f=document.getElementById('dateFrom').value, t=document.getElementById('dateTo').value;
   if(!f||!t){alert('시작일과 종료일을 모두 입력해주세요.');return;}
   if(f>t){alert('시작일이 종료일보다 늦을 수 없어요.');return;}
-  if(isLive)toggleLive();
+  isLive=false;
   const si=dateToWeekIdx(f), ei=dateToWeekIdx(t);
   activeWeekRange=[Math.min(si,ei),Math.max(si,ei)];
   const badge=document.getElementById('periodBadge');
@@ -454,6 +534,19 @@ function applyDateRange(){
   badge.textContent=wFrom+(wFrom===wTo?'':' ~ '+wTo)+' ('+f+' ~ '+t+')';
   badge.classList.add('visible');
   document.getElementById('updateTime').textContent='기간 조회 모드';
+  // 날짜 필터 적용해서 데이터 리렌더
+  renderWithDateFilter(f, t);
+}
+
+function renderWithDateFilter(fromDate, toDate){
+  const filtered = fromDate && toDate
+    ? allItems.filter(item=>{
+        if(!item.작성일) return false;
+        const d=item.작성일.slice(0,10);
+        return d>=fromDate && d<=toDate;
+      })
+    : allItems;
+  renderAllData(filtered);
   renderAreaChart(); renderTrendChart();
 }
 
@@ -733,28 +826,13 @@ async function loadFeedFromSheets(){
     }).filter(i=>i.제목&&BRANDS.includes(i.브랜드));
 
     allItems=items;
-    console.log(`✅ ${items.length}개 로드 완료`);
+    console.log(`✅ 전체 ${items.length}개 로드 완료`);
 
-    // ── SOV 계산 ──────────────────────────────────
-    BRANDS.forEach(b=>SOV.all[b]=0);
-    items.forEach(item=>{if(SOV.all[item.브랜드]!==undefined)SOV.all[item.브랜드]++;});
-
-    // ── 감성별 SOV ────────────────────────────────
-    BRANDS.forEach(b=>{SENT.all[b]=0;SENT.pos[b]=0;SENT.neg[b]=0;SENT.neu[b]=0;});
-    items.forEach(item=>{
-      const b=item.브랜드; if(SENT.all[b]===undefined)return;
-      SENT.all[b]++;
-      if(item.감성==='긍정')SENT.pos[b]++;
-      else if(item.감성==='부정')SENT.neg[b]++;
-      else SENT.neu[b]++;
-    });
-
-    // ── 주차별 SOV + 감성 집계 ────────────────────
+    // ── 주차별 데이터는 전체 기준으로 계산 (차트용) ──
     const weeklyCounts=WEEKLY_DATES.map(()=>{const o={};BRANDS.forEach(b=>o[b]=0);return o;});
     const weeklyPos=WEEKLY_DATES.map(()=>{const o={};BRANDS.forEach(b=>o[b]=0);return o;});
     const weeklyNeg=WEEKLY_DATES.map(()=>{const o={};BRANDS.forEach(b=>o[b]=0);return o;});
     const weeklyNeu=WEEKLY_DATES.map(()=>{const o={};BRANDS.forEach(b=>o[b]=0);return o;});
-
     items.forEach(item=>{
       if(!item.작성일)return;
       const d=item.작성일.slice(0,10);
@@ -771,17 +849,25 @@ async function loadFeedFromSheets(){
       else if(item.감성==='부정')weeklyNeg[wi][b]++;
       else weeklyNeu[wi][b]++;
     });
-
     BRANDS.forEach(b=>{
       WEEKLY_SOV[b]=weeklyCounts.map(wk=>{const total=BRANDS.reduce((s,br)=>s+(wk[br]||0),0);return total?Math.round((wk[b]||0)/total*100):0;});
       WEEKLY_SENT.pos[b]=weeklyPos.map(wk=>wk[b]||0);
       WEEKLY_SENT.neg[b]=weeklyNeg.map(wk=>wk[b]||0);
       WEEKLY_SENT.neu[b]=weeklyNeu.map(wk=>wk[b]||0);
     });
+    renderAreaChart(); renderTrendChart();
 
-    // ── 차트 전체 리렌더 ──────────────────────────
-    renderMainDonut(); renderSentAll(); renderAreaChart(); renderTrendChart();
-    renderSentBars();
+    // ── 디폴트 기간(W-11~오늘) 적용해서 렌더 ────────
+    setDefaultDateRange();
+    const defaultFrom=document.getElementById('dateFrom').value;
+    const defaultTo=document.getElementById('dateTo').value;
+    const defaultItems=items.filter(item=>{
+      if(!item.작성일)return false;
+      const d=item.작성일.slice(0,10);
+      return d>=defaultFrom && d<=defaultTo;
+    });
+    console.log(`📅 기간 필터 적용: ${defaultItems.length}개 (${defaultFrom}~${defaultTo})`);
+    renderAllData(defaultItems);
 
     // ── 이미지 키워드 분석 ────────────────────────
     const STOP_WORDS=new Set([
@@ -857,6 +943,33 @@ async function loadFeedFromSheets(){
         });
       words.forEach(w=>{brandKwMap[b][w]=(brandKwMap[b][w]||0)+1;});
     });
+
+    // ═════════════════════════════════════════════
+    // renderAllData: 기간 필터된 items로 모든 카드 렌더
+    // ═════════════════════════════════════════════
+    renderAllData(items); // 초기엔 전체로 한번 돌림 (setDefaultDateRange에서 재호출됨)
+
+  } catch(e){
+    console.error('Sheets 로드 오류:', e);
+    document.getElementById('feedGrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">⚠️ 데이터 로드 실패. 스프레드시트 공개 설정을 확인해주세요.</div>';
+  }
+}
+
+// ════════════════════════════════════════════════
+// renderAllData: 필터된 items로 전체 카드 렌더
+// ════════════════════════════════════════════════
+function renderAllData(items){
+
+    // ── SOV + 감성 계산 ──────────────────────────
+    BRANDS.forEach(b=>{SOV.all[b]=0;SENT.all[b]=0;SENT.pos[b]=0;SENT.neg[b]=0;SENT.neu[b]=0;});
+    items.forEach(item=>{
+      const b=item.브랜드; if(SOV.all[b]===undefined)return;
+      SOV.all[b]++;SENT.all[b]++;
+      if(item.감성==='긍정')SENT.pos[b]++;
+      else if(item.감성==='부정')SENT.neg[b]++;
+      else SENT.neu[b]++;
+    });
+    renderMainDonut(); renderSentAll(); renderSentBars();
 
     // 이미지 키워드 카드 렌더
     const imageGrid=document.getElementById('imageGrid');
@@ -1027,7 +1140,7 @@ async function loadFeedFromSheets(){
     valueBrands.forEach(b=>{
       if(!activeBrands.has(b))return;
       const isLotte=b==='롯데백화점';
-      const entries=Object.entries(brandValueMap[b]).sort((a,c)=>c[1]-a[1]).slice(0,12);
+      const entries=Object.entries(brandValueMap[b]).sort((a,c)=>c[1]-a[1]).slice(0,20);
       if(entries.length===0)return;
       const maxFreq=entries[0][1]||1;
       const kcClass=KC[b]||'kc-default';
@@ -1042,6 +1155,103 @@ async function loadFeedFromSheets(){
           <div class="value-kw-cloud">${chips}</div>
         </div>`;
     });
+
+    // ── 경쟁력 5요인 테이블 렌더 ─────────────────
+    const FACTORS = [
+      {
+        key:'접근성', icon:'🚗',
+        desc:'교통 편의성, 주차 환경, 위치 접근성에 관한 언급',
+        kws:['주차','주차장','무료주차','발렛','지하철','셔틀','버스','위치','멀다','가깝다','오시기','교통','접근성','주차편','주차어렵','주차불편'],
+      },
+      {
+        key:'쾌적함', icon:'✨',
+        desc:'공간의 넓이, 청결도, 편의시설, 동선 만족도에 관한 언급',
+        kws:['인테리어','채광','화장실','유모차','수유실','층','동선','쾌적','넓다','복잡','기빨링','답답','깔끔','청결','깨끗','넓어','여유'],
+      },
+      {
+        key:'MD경쟁력', icon:'🛍️',
+        desc:'브랜드 구성, 명품 입점, 한정판 및 신상품 관련 언급',
+        kws:['명품','오픈런','에루샤','편집숍','한정판','입점','브랜드','구성','독점','신상','살게없다','구성좋다','단독','라인업','컬렉션'],
+      },
+      {
+        key:'경험·F&B', icon:'🎪',
+        desc:'팝업, 전시, 맛집, 카페, 포토존 등 체험 콘텐츠 관련 언급',
+        kws:['팝업','전시','맛집','카페','포토존','인증샷','문화센터','웨이팅','즐길거리','대기','줄서다','체험','먹거리','F&B','갤러리','공연'],
+      },
+      {
+        key:'서비스', icon:'💎',
+        desc:'직원 친절도, VIP 우대, 멤버십 혜택, 교환/환불 관련 언급',
+        kws:['친절','응대','교환','환불','VIP','라운지','멤버십','퍼스널쇼퍼','불친절','무시','혜택','직원','서비스','고객센터','안내'],
+      },
+    ];
+
+    const factorTbody=document.getElementById('factorTableBody');
+    if(factorTbody){
+      factorTbody.innerHTML='';
+      // 브랜드별 요인 버즈 집계
+      const factorData={};
+      BRANDS.forEach(b=>{
+        factorData[b]={};
+        FACTORS.forEach(f=>{factorData[b][f.key]=0;});
+      });
+      items.forEach(item=>{
+        const b=item.브랜드; if(!factorData[b])return;
+        const text=(item.제목+' '+item.내용요약).toLowerCase();
+        FACTORS.forEach(f=>{
+          const hit=f.kws.some(kw=>text.includes(kw.toLowerCase()));
+          if(hit)factorData[b][f.key]++;
+        });
+      });
+
+      FACTORS.forEach(factor=>{
+        // 브랜드별 해당 요인 수치 + 전체 버즈 대비 비중
+        const cells=BRANDS.map(b=>{
+          const cnt=factorData[b][factor.key]||0;
+          const total=SOV.all[b]||1;
+          const pct=Math.round(cnt/total*100);
+          return {b,cnt,pct};
+        });
+        // 1위 찾기
+        const maxPct=Math.max(...cells.map(c=>c.pct));
+
+        const kwHtml=factor.kws.slice(0,8).map(k=>`<span class="factor-tooltip-kw">${k}</span>`).join('');
+        const tooltipHtml=`
+          <div class="factor-tooltip">
+            <div class="factor-tooltip-title">${factor.icon} ${factor.key}</div>
+            <div class="factor-tooltip-desc">${factor.desc}</div>
+            <div class="factor-tooltip-kws">${kwHtml}</div>
+          </div>`;
+
+        const tds=cells.map(({b,cnt,pct})=>{
+          const isMax=pct===maxPct&&pct>0;
+          const color=BC[b]||'#888';
+          const barW=maxPct>0?Math.round(pct/maxPct*100):0;
+          return `<td class="factor-bar-cell">
+            <div style="display:flex;align-items:center;gap:6px">
+              <div class="factor-bar-wrap" style="flex:1">
+                <div class="factor-bar-fill" style="width:${barW}%;background:${color};opacity:${b==='롯데백화점'?1:.72}">
+                  ${barW>25?pct+'%':''}
+                </div>
+              </div>
+              <span class="factor-pct" style="${b==='롯데백화점'?'color:var(--accent2);font-weight:600':''}">${pct}%</span>
+              <span class="factor-rank ${isMax?'rank1':'rank2'}">${isMax?'1위':''}</span>
+            </div>
+            <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:'DM Mono',monospace">${cnt}건</div>
+          </td>`;
+        }).join('');
+
+        factorTbody.innerHTML+=`<tr>
+          <td>
+            <div class="factor-name">
+              <span class="factor-icon">${factor.icon}</span>
+              <span class="factor-label">${factor.key}</span>
+              ${tooltipHtml}
+            </div>
+          </td>
+          ${tds}
+        </tr>`;
+      });
+    }
 
     // ── 최신 이슈 ─────────────────────────────────
     const latestByBrand={};
@@ -1094,11 +1304,6 @@ async function loadFeedFromSheets(){
     });
     applyFeedFilter();
     console.log('✅ 렌더 완료');
-
-  } catch(e){
-    console.error('Sheets 로드 오류:', e);
-    document.getElementById('feedGrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">⚠️ 데이터 로드 실패. 스프레드시트 공개 설정을 확인해주세요.<br><small>SHEETS_ID를 올바르게 설정했는지 확인해주세요.</small></div>';
-  }
 }
 
 loadFeedFromSheets();
