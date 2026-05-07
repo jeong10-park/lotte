@@ -33,7 +33,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 .date-apply-btn{font-size:12px;padding:5px 12px;border-radius:8px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .15s}
 .date-apply-btn:hover{border-color:var(--accent);color:var(--accent2)}
 .period-badge{font-size:11px;font-family:'DM Mono',monospace;padding:3px 10px;border-radius:20px;border:1px solid var(--border2);color:var(--text3);display:none}
-.period-badge.visible{display:inline-block;color:var(--accent2);border-color:rgba(228,0,58,.3)}
+.period-badge.visible{display:inline-block;color:var(--accent2);border-color:rgba(228,0,58,.5);background:rgba(228,0,58,.1);font-weight:500}
 .last-update{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
 
 /* ── 컨테이너 ─────────────────────────────── */
@@ -212,7 +212,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 .factor-tooltip-desc{font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:7px}
 .factor-tooltip-kws{display:flex;flex-wrap:wrap;gap:4px}
 .factor-tooltip-kw{font-size:10px;padding:2px 7px;border-radius:6px;background:rgba(255,255,255,.06);color:var(--text3);font-family:'DM Mono',monospace}
-.factor-bar-cell{min-width:120px}
+.factor-bar-cell{min-width:80px}
 .factor-bar-wrap{height:20px;background:rgba(255,255,255,.04);border-radius:5px;overflow:hidden;display:flex}
 .factor-bar-fill{height:100%;border-radius:5px;display:flex;align-items:center;padding-left:7px;font-size:11px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.85);font-weight:500;transition:width .6s ease;white-space:nowrap;overflow:hidden;min-width:0}
 .factor-pct{font-size:12px;font-family:'DM Mono',monospace;color:var(--text2);min-width:38px;text-align:right;padding-left:8px}
@@ -355,16 +355,16 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
 
     <!-- 버즈 비중 표 -->
     <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:10px;padding-left:2px">📊 요인별 버즈 비중 <span style="font-size:11px;font-weight:400;color:var(--text3)">(각 브랜드 내 해당 요인 버즈 비중)</span></div>
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px;overflow-x:auto;margin-bottom:16px">
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px">
       <table class="factor-table" id="factorTable">
         <thead>
           <tr>
-            <th style="min-width:130px">경쟁 요인</th>
-            <th class="brand-col" style="color:#e4003a;min-width:180px">롯데백화점</th>
-            <th class="brand-col" style="color:#2e7d32;min-width:180px">신세계백화점</th>
-            <th class="brand-col" style="color:#1565c0;min-width:180px">현대백화점</th>
-            <th class="brand-col" style="color:#6a1b9a;min-width:180px">갤러리아백화점</th>
-            <th class="brand-col" style="color:#e65100;min-width:180px">AK플라자</th>
+            <th style="min-width:110px">경쟁 요인</th>
+            <th class="brand-col" style="color:#e4003a">롯데백화점</th>
+            <th class="brand-col" style="color:#2e7d32">신세계백화점</th>
+            <th class="brand-col" style="color:#1565c0">현대백화점</th>
+            <th class="brand-col" style="color:#6a1b9a">갤러리아백화점</th>
+            <th class="brand-col" style="color:#e65100">AK플라자</th>
           </tr>
         </thead>
         <tbody id="factorTableBody">
@@ -379,12 +379,12 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
       <table class="factor-table" id="factorMsTable">
         <thead>
           <tr>
-            <th style="min-width:130px">경쟁 요인</th>
-            <th class="brand-col" style="color:#e4003a;min-width:180px">롯데백화점</th>
-            <th class="brand-col" style="color:#2e7d32;min-width:180px">신세계백화점</th>
-            <th class="brand-col" style="color:#1565c0;min-width:180px">현대백화점</th>
-            <th class="brand-col" style="color:#6a1b9a;min-width:180px">갤러리아백화점</th>
-            <th class="brand-col" style="color:#e65100;min-width:180px">AK플라자</th>
+            <th style="min-width:110px">경쟁 요인</th>
+            <th class="brand-col" style="color:#e4003a">롯데백화점</th>
+            <th class="brand-col" style="color:#2e7d32">신세계백화점</th>
+            <th class="brand-col" style="color:#1565c0">현대백화점</th>
+            <th class="brand-col" style="color:#6a1b9a">갤러리아백화점</th>
+            <th class="brand-col" style="color:#e65100">AK플라자</th>
           </tr>
         </thead>
         <tbody id="factorMsBody">
@@ -532,9 +532,9 @@ function setDefaultDateRange(){
   document.getElementById('dateFrom').value=w11Str;
   document.getElementById('dateTo').value=todayStr;
   const badge=document.getElementById('periodBadge');
-  badge.textContent=`W-11 ~ 오늘 (${w11Str} ~ ${todayStr})`;
+  badge.textContent=`📅 ${w11Str} ~ ${todayStr}`;
   badge.classList.add('visible');
-  document.getElementById('updateTime').textContent='기간 조회 모드';
+  document.getElementById('updateTime').textContent='기간 조회 중';
   isLive=false;
 }
 
@@ -656,9 +656,9 @@ function renderSentBars(){
     const neg=Math.round(SENT.neg[brand]/total*100);
     const neu=100-pos-neg;
     const isLotte=brand==='롯데백화점';
-    const posLabel=pos>=8?`${pos}%`:'';
-    const negLabel=neg>=8?`${neg}%`:'';
-    const neuLabel=neu>=8?`${neu}%`:'';
+    const posLabel=pos>=6?`${pos}%`:'';
+    const negLabel=neg>=4?`${neg}%`:'';
+    const neuLabel=neu>=6?`${neu}%`:'';
     el.innerHTML+=`<div class="sent-bar-row">
       <span class="sent-bar-brand" style="color:${BC[brand]};${isLotte?'font-weight:600':''}">${brand}${isLotte?' ✦':''}</span>
       <div class="sent-bar-track">
@@ -1193,23 +1193,24 @@ function renderAllData(items){
       },
     ];
 
+    // 브랜드별 요인 버즈 집계 (factorData 전역 스코프로)
+    const factorData={};
+    BRANDS.forEach(b=>{
+      factorData[b]={};
+      FACTORS.forEach(f=>{factorData[b][f.key]=0;});
+    });
+    items.forEach(item=>{
+      const b=item.브랜드; if(!factorData[b])return;
+      const text=(item.제목+' '+item.내용요약).toLowerCase();
+      FACTORS.forEach(f=>{
+        const hit=f.kws.some(kw=>text.includes(kw.toLowerCase()));
+        if(hit)factorData[b][f.key]++;
+      });
+    });
+
     const factorTbody=document.getElementById('factorTableBody');
     if(factorTbody){
       factorTbody.innerHTML='';
-      // 브랜드별 요인 버즈 집계
-      const factorData={};
-      BRANDS.forEach(b=>{
-        factorData[b]={};
-        FACTORS.forEach(f=>{factorData[b][f.key]=0;});
-      });
-      items.forEach(item=>{
-        const b=item.브랜드; if(!factorData[b])return;
-        const text=(item.제목+' '+item.내용요약).toLowerCase();
-        FACTORS.forEach(f=>{
-          const hit=f.kws.some(kw=>text.includes(kw.toLowerCase()));
-          if(hit)factorData[b][f.key]++;
-        });
-      });
 
       FACTORS.forEach(factor=>{
         // 브랜드별 해당 요인 수치 + 전체 버즈 대비 비중
