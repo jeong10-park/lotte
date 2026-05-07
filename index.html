@@ -1283,11 +1283,6 @@ function renderAllData(items){
           </div>`;
         }).join('');
 
-        // 브랜드별 수치 요약
-        const summaryHtml=segs.map(({b,ms})=>`
-          <span style="font-size:11px;font-family:'DM Mono',monospace;color:${BC[b]};font-weight:${b==='롯데백화점'?600:400}">${ms}%</span>
-        `).join('<span style="color:var(--text3);font-size:10px;margin:0 2px">·</span>');
-
         factorMsBody.innerHTML+=`
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
             <div class="factor-name" style="min-width:90px">
@@ -1298,7 +1293,6 @@ function renderAllData(items){
             <div style="flex:1;height:26px;border-radius:6px;overflow:hidden;display:flex;background:rgba(255,255,255,.04)">
               ${segHtml}
             </div>
-            <div style="min-width:280px;display:flex;align-items:center;gap:4px;flex-wrap:wrap">${summaryHtml}</div>
           </div>`;
       });
     }
