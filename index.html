@@ -31,9 +31,10 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 .date-input:focus{border-color:var(--accent);color:var(--text)}
 .date-sep{font-size:12px;color:var(--text3);font-family:'DM Mono',monospace}
 .date-apply-btn{font-size:12px;padding:5px 12px;border-radius:8px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .15s}
+.date-apply-btn.active{border-color:var(--accent);color:var(--accent2);background:rgba(228,0,58,.12);font-weight:500}
 .date-apply-btn:hover{border-color:var(--accent);color:var(--accent2)}
-.period-badge{font-size:11px;font-family:'DM Mono',monospace;padding:3px 10px;border-radius:20px;border:1px solid var(--border2);color:var(--text3);display:none}
-.period-badge.visible{display:inline-block;color:var(--accent2);border-color:rgba(228,0,58,.5);background:rgba(228,0,58,.1);font-weight:500}
+.period-badge{display:none}
+.period-badge.visible{display:none}
 .last-update{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
 
 /* ── 컨테이너 ─────────────────────────────── */
@@ -373,24 +374,20 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
       </table>
     </div>
 
-    <!-- M/S 표 -->
+    <!-- M/S 누적 막대 -->
     <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:10px;padding-left:2px">🥊 요인별 경쟁 M/S <span style="font-size:11px;font-weight:400;color:var(--text3)">(해당 요인 버즈에서 각 브랜드가 차지하는 점유율)</span></div>
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px;overflow-x:auto">
-      <table class="factor-table" id="factorMsTable">
-        <thead>
-          <tr>
-            <th style="min-width:110px">경쟁 요인</th>
-            <th class="brand-col" style="color:#e4003a">롯데백화점</th>
-            <th class="brand-col" style="color:#2e7d32">신세계백화점</th>
-            <th class="brand-col" style="color:#1565c0">현대백화점</th>
-            <th class="brand-col" style="color:#6a1b9a">갤러리아백화점</th>
-            <th class="brand-col" style="color:#e65100">AK플라자</th>
-          </tr>
-        </thead>
-        <tbody id="factorMsBody">
-          <tr><td colspan="6" style="text-align:center;padding:30px;color:var(--text3)">📡 데이터 불러오는 중...</td></tr>
-        </tbody>
-      </table>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px">
+      <!-- 범례 -->
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px">
+        <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><span style="width:10px;height:10px;border-radius:2px;background:#e4003a;display:inline-block"></span>롯데백화점</span>
+        <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><span style="width:10px;height:10px;border-radius:2px;background:#2e7d32;display:inline-block"></span>신세계백화점</span>
+        <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><span style="width:10px;height:10px;border-radius:2px;background:#1565c0;display:inline-block"></span>현대백화점</span>
+        <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><span style="width:10px;height:10px;border-radius:2px;background:#6a1b9a;display:inline-block"></span>갤러리아백화점</span>
+        <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><span style="width:10px;height:10px;border-radius:2px;background:#e65100;display:inline-block"></span>AK플라자</span>
+      </div>
+      <div id="factorMsBody">
+        <div style="text-align:center;padding:30px;color:var(--text3);font-size:13px">📡 데이터 불러오는 중...</div>
+      </div>
     </div>
   </div>
 
@@ -515,6 +512,7 @@ function toggleAllPeriod(){
   document.getElementById('dateTo').value='';
   document.getElementById('periodBadge').classList.remove('visible');
   document.getElementById('updateTime').textContent='전체 기간';
+  document.querySelector('.date-apply-btn').classList.remove('active');
   activeWeekRange=null;
   isLive=true;
   renderAreaChart(); renderTrendChart();
@@ -532,9 +530,9 @@ function setDefaultDateRange(){
   document.getElementById('dateFrom').value=w11Str;
   document.getElementById('dateTo').value=todayStr;
   const badge=document.getElementById('periodBadge');
-  badge.textContent=`📅 ${w11Str} ~ ${todayStr}`;
   badge.classList.add('visible');
   document.getElementById('updateTime').textContent='기간 조회 중';
+  document.querySelector('.date-apply-btn').classList.add('active');
   isLive=false;
 }
 
@@ -556,7 +554,8 @@ function applyDateRange(){
   const wFrom=WEEKLY_LABELS[activeWeekRange[0]], wTo=WEEKLY_LABELS[activeWeekRange[1]];
   badge.textContent=wFrom+(wFrom===wTo?'':' ~ '+wTo)+' ('+f+' ~ '+t+')';
   badge.classList.add('visible');
-  document.getElementById('updateTime').textContent='기간 조회 모드';
+  document.getElementById('updateTime').textContent='기간 조회 중';
+  document.querySelector('.date-apply-btn').classList.add('active');
   // 날짜 필터 적용해서 데이터 리렌더
   renderWithDateFilter(f, t);
 }
@@ -1235,13 +1234,10 @@ function renderAllData(items){
           const color=BC[b]||'#888';
           const barW=maxPct>0?Math.round(pct/maxPct*100):0;
           return `<td class="factor-bar-cell">
-            <div style="display:flex;align-items:center;gap:6px">
-              <div class="factor-bar-wrap" style="flex:1">
-                <div class="factor-bar-fill" style="width:${barW}%;background:${color};opacity:${b==='롯데백화점'?1:.72}">
-                  ${barW>25?pct+'%':''}
-                </div>
+            <div class="factor-bar-wrap">
+              <div class="factor-bar-fill" style="width:${barW}%;background:${color};opacity:${b==='롯데백화점'?1:.72}">
+                ${pct>0?pct+'%':''}
               </div>
-              <span class="factor-pct" style="${b==='롯데백화점'?'color:var(--accent2);font-weight:600':''}">${pct}%</span>
             </div>
             <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:'DM Mono',monospace">${cnt}건</div>
           </td>`;
@@ -1260,59 +1256,50 @@ function renderAllData(items){
       });
     }
 
-    // ── M/S 표 렌더 (요인별 브랜드 점유율) ─────────
+    // ── M/S 누적 막대 렌더 ───────────────────────────
     const factorMsBody=document.getElementById('factorMsBody');
     if(factorMsBody){
       factorMsBody.innerHTML='';
       FACTORS.forEach(factor=>{
-        // 요인별 전체 버즈 합계
-        const factorTotal=BRANDS.reduce((s,b)=>{
-          const text_cnt=factorData[b]?factorData[b][factor.key]||0:0;
-          return s+text_cnt;
-        },0)||1;
-
-        const msCells=BRANDS.map(b=>{
+        const factorTotal=BRANDS.reduce((s,b)=>s+(factorData[b]?factorData[b][factor.key]||0:0),0)||1;
+        const segs=BRANDS.map(b=>{
           const cnt=factorData[b]?factorData[b][factor.key]||0:0;
           const ms=Math.round(cnt/factorTotal*100);
           return {b,cnt,ms};
         });
-        const maxMs=Math.max(...msCells.map(c=>c.ms))||1;
 
         const kwHtml=factor.kws.slice(0,8).map(k=>`<span class="factor-tooltip-kw">${k}</span>`).join('');
-        const tooltipHtml=`
-          <div class="factor-tooltip">
-            <div class="factor-tooltip-title">${factor.icon} ${factor.key} M/S</div>
-            <div class="factor-tooltip-desc">해당 요인 전체 버즈(${factorTotal}건) 중 각 브랜드가 차지하는 점유율</div>
-            <div class="factor-tooltip-kws">${kwHtml}</div>
-          </div>`;
+        const tooltipHtml=`<div class="factor-tooltip">
+          <div class="factor-tooltip-title">${factor.icon} ${factor.key} M/S</div>
+          <div class="factor-tooltip-desc">해당 요인 전체 버즈(${factorTotal}건) 중 각 브랜드 점유율</div>
+          <div class="factor-tooltip-kws">${kwHtml}</div>
+        </div>`;
 
-        const msTds=msCells.map(({b,cnt,ms})=>{
-          const isLotte=b==='롯데백화점';
+        const segHtml=segs.map(({b,cnt,ms})=>{
           const color=BC[b]||'#888';
-          const barW=Math.round(ms/maxMs*100);
-          return `<td class="factor-bar-cell">
-            <div style="display:flex;align-items:center;gap:6px">
-              <div class="factor-bar-wrap" style="flex:1">
-                <div class="factor-bar-fill" style="width:${barW}%;background:${color};opacity:${isLotte?1:.72}">
-                  ${barW>25?ms+'%':''}
-                </div>
-              </div>
-              <span class="factor-pct" style="${isLotte?'color:var(--accent2);font-weight:600':''}">${ms}%</span>
-            </div>
-            <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:'DM Mono',monospace">${cnt}건</div>
-          </td>`;
+          const isLotte=b==='롯데백화점';
+          return `<div style="flex:${ms};height:100%;background:${color};opacity:${isLotte?1:.78};display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.9);font-weight:${isLotte?600:400};white-space:nowrap;overflow:hidden;transition:flex .5s ease" title="${b}: ${ms}% (${cnt}건)">
+            ${ms>=8?ms+'%':''}
+          </div>`;
         }).join('');
 
-        factorMsBody.innerHTML+=`<tr>
-          <td>
-            <div class="factor-name">
+        // 브랜드별 수치 요약
+        const summaryHtml=segs.map(({b,ms})=>`
+          <span style="font-size:11px;font-family:'DM Mono',monospace;color:${BC[b]};font-weight:${b==='롯데백화점'?600:400}">${ms}%</span>
+        `).join('<span style="color:var(--text3);font-size:10px;margin:0 2px">·</span>');
+
+        factorMsBody.innerHTML+=`
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div class="factor-name" style="min-width:90px">
               <span class="factor-icon">${factor.icon}</span>
               <span class="factor-label">${factor.key}</span>
               ${tooltipHtml}
             </div>
-          </td>
-          ${msTds}
-        </tr>`;
+            <div style="flex:1;height:26px;border-radius:6px;overflow:hidden;display:flex;background:rgba(255,255,255,.04)">
+              ${segHtml}
+            </div>
+            <div style="min-width:280px;display:flex;align-items:center;gap:4px;flex-wrap:wrap">${summaryHtml}</div>
+          </div>`;
       });
     }
 
