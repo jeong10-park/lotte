@@ -469,13 +469,32 @@ BRANDS.forEach(b=>{
 });
 
 // 주차 계산
-function getMonday(d){
-  const day=d.getDay(),diff=d.getDate()-(day===0?6:day-1);
-  const mon=new Date(d); mon.setDate(diff); mon.setHours(0,0,0,0); return mon;
-}
+// 크로스브라우저 안전한 날짜 유틸
 function fmt(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-const thisMonday=getMonday(new Date());
-const WEEKLY_DATES=[]; for(let i=11;i>=0;i--){const d=new Date(thisMonday);d.setDate(thisMonday.getDate()-i*7);WEEKLY_DATES.push(fmt(d));}
+
+// 타임존 이슈 없이 로컬 날짜 기준으로 오늘 구하기
+function getLocalToday(){
+  const now=new Date();
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+}
+
+// 로컬 기준 이번 주 월요일
+function getMonday(d){
+  const day=d.getDay();
+  const diff=day===0?-6:1-day; // 월요일 기준
+  const mon=new Date(d.getFullYear(), d.getMonth(), d.getDate()+diff);
+  return mon;
+}
+
+// 날짜 문자열 → Date (크로스브라우저 안전: 'YYYY-MM-DD' 직접 파싱)
+function parseLocalDate(str){
+  if(!str) return new Date();
+  const parts=str.split('-');
+  return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+}
+
+const thisMonday=getMonday(getLocalToday());
+const WEEKLY_DATES=[]; for(let i=11;i>=0;i--){const d=new Date(thisMonday.getFullYear(),thisMonday.getMonth(),thisMonday.getDate()-i*7);WEEKLY_DATES.push(fmt(d));}
 const WEEKLY_LABELS=WEEKLY_DATES.map((_,i)=>{const d=WEEKLY_DATES.length-1-i;return d===0?'W':`W-${d}`;});
 
 // 주차별 데이터 (SOV + 감성)
@@ -520,28 +539,37 @@ function toggleAllPeriod(){
   
 }
 
-// 디폴트 기간 설정: 오늘 ~ W-11 시작일
-function setDefaultDateRange(){
-  const today=new Date();
+// 디폴트 기간 계산: W-11 시작일 ~ 오늘 (문자열 직접 반환)
+function getDefaultDateRange(){
+  const today=getLocalToday();
   const todayStr=fmt(today);
-  const w11Start=new Date(thisMonday);
-  w11Start.setDate(thisMonday.getDate()-11*7);
+  const w11Start=new Date(thisMonday.getFullYear(),thisMonday.getMonth(),thisMonday.getDate()-11*7);
   const w11Str=fmt(w11Start);
-  document.getElementById('dateFrom').value=w11Str;
-  document.getElementById('dateTo').value=todayStr;
+  return {from:w11Str, to:todayStr};
+}
+
+function setDefaultDateRange(){
+  const {from, to}=getDefaultDateRange();
+  // input 값 세팅 (UI용)
+  const fromEl=document.getElementById('dateFrom');
+  const toEl=document.getElementById('dateTo');
+  if(fromEl) fromEl.value=from;
+  if(toEl) toEl.value=to;
   const badge=document.getElementById('periodBadge');
-  badge.classList.add('visible');
+  if(badge) badge.classList.add('visible');
   document.getElementById('updateTime').textContent='기간 조회 중';
-  document.querySelector('.date-apply-btn').classList.add('active');
+  const applyBtn=document.querySelector('.date-apply-btn');
+  if(applyBtn) applyBtn.classList.add('active');
   isLive=false;
+  return {from, to}; // 문자열 직접 반환
 }
 
 function dateToWeekIdx(dateStr){
-  const d=new Date(dateStr);
+  const d=parseLocalDate(dateStr);
   for(let i=0;i<WEEKLY_DATES.length-1;i++){
-    if(d>=new Date(WEEKLY_DATES[i])&&d<new Date(WEEKLY_DATES[i+1]))return i;
+    if(d>=parseLocalDate(WEEKLY_DATES[i])&&d<parseLocalDate(WEEKLY_DATES[i+1]))return i;
   }
-  return d>=new Date(WEEKLY_DATES[WEEKLY_DATES.length-1])?WEEKLY_DATES.length-1:0;
+  return d>=parseLocalDate(WEEKLY_DATES[WEEKLY_DATES.length-1])?WEEKLY_DATES.length-1:0;
 }
 function applyDateRange(){
   const f=document.getElementById('dateFrom').value, t=document.getElementById('dateTo').value;
@@ -564,7 +592,7 @@ function renderWithDateFilter(fromDate, toDate){
   const filtered = fromDate && toDate
     ? allItems.filter(item=>{
         if(!item.작성일) return false;
-        const d=item.작성일.slice(0,10);
+        const d=String(item.작성일).slice(0,10);
         return d>=fromDate && d<=toDate;
       })
     : allItems;
@@ -880,12 +908,11 @@ async function loadFeedFromSheets(){
     renderAreaChart(); renderTrendChart();
 
     // ── 디폴트 기간(W-11~오늘) 적용해서 렌더 ────────
-    setDefaultDateRange();
-    const defaultFrom=document.getElementById('dateFrom').value;
-    const defaultTo=document.getElementById('dateTo').value;
+    // input.value 의존 없이 직접 날짜 문자열 사용 (크로스브라우저 안전)
+    const {from:defaultFrom, to:defaultTo}=setDefaultDateRange();
     const defaultItems=items.filter(item=>{
       if(!item.작성일)return false;
-      const d=item.작성일.slice(0,10);
+      const d=String(item.작성일).slice(0,10);
       return d>=defaultFrom && d<=defaultTo;
     });
     console.log(`📅 기간 필터 적용: ${defaultItems.length}개 (${defaultFrom}~${defaultTo})`);
