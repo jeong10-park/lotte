@@ -941,6 +941,25 @@ function renderAllData(items){
     });
     renderMainDonut(); renderSentAll(); renderSentBars();
 
+    // ── 브랜드별 키워드 집계 ─────────────────────
+    const brandKwMap={};BRANDS.forEach(b=>brandKwMap[b]={});
+    items.forEach(item=>{
+      const b=item.브랜드; if(!brandKwMap[b])return;
+      const words=(item.제목+' '+item.내용요약)
+        .replace(/https?:\/\/\S+/g,'')
+        .replace(/[^\w가-힣\s]/g,' ')
+        .split(/\s+/)
+        .filter(w=>{
+          if(w.length<2) return false;
+          if(/^\d+$/.test(w)) return false;
+          if(/^\d+(년|월|일|층|개|명|원|점)$/.test(w)) return false;
+          if(STOP_WORDS_GLOBAL.has(w)) return false;
+          if(BRANDS.some(br=>w.includes(br))) return false;
+          return true;
+        });
+      words.forEach(w=>{brandKwMap[b][w]=(brandKwMap[b][w]||0)+1;});
+    });
+
     // 이미지 키워드 카드 렌더
     const imageGrid=document.getElementById('imageGrid');
     imageGrid.innerHTML='';
